@@ -32,6 +32,28 @@ export const getSettings = () => api.get("/settings").then((r) => r.data);
 export const submitContact = (payload) =>
     api.post("/contact", payload).then((r) => r.data);
 
+// ---- Google Sheet lead capture --------------------------------------------
+// Posts a lead straight into the Google Sheet via an Apps Script Web App.
+// Apps Script endpoints don't return CORS headers, so we use mode "no-cors"
+// with a text/plain body (avoids the CORS preflight). The script reads the
+// raw body from e.postData.contents and appends a row.
+const SHEET_WEBHOOK_URL = process.env.REACT_APP_SHEET_WEBHOOK_URL || "";
+
+export const isSheetConfigured = () => SHEET_WEBHOOK_URL.trim() !== "";
+
+export const submitToSheet = async (payload) => {
+    if (!isSheetConfigured()) {
+        throw new Error("Sheet webhook URL is not configured.");
+    }
+    await fetch(SHEET_WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+    });
+    return { ok: true };
+};
+
 // ---- Admin auth ------------------------------------------------------------
 export const adminLogin = (password) =>
     api.post("/admin/login", { password }).then((r) => {

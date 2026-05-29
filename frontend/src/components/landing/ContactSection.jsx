@@ -13,7 +13,7 @@ import {
     MessageCircle,
 } from "lucide-react";
 import { FadeIn } from "./FadeIn";
-import { submitContact } from "@/lib/api";
+import { submitContact, submitToSheet, isSheetConfigured } from "@/lib/api";
 import { NAV_LINKS, scrollToId } from "@/lib/config";
 import { useSettings } from "@/lib/SettingsContext";
 
@@ -50,13 +50,15 @@ const inputClass =
 export const ContactSection = () => {
     const { settings, wa } = useSettings();
     const SOCIALS = buildSocials(settings);
-    const [form, setForm] = useState({
+    const emptyForm = {
         name: "",
         email: "",
+        phone: "",
         project_type: PROJECT_TYPES[0],
         budget: BUDGETS[1],
         message: "",
-    });
+    };
+    const [form, setForm] = useState(emptyForm);
     const [status, setStatus] = useState({ state: "idle", error: "" });
 
     const update = (key) => (e) => {
@@ -68,15 +70,32 @@ export const ContactSection = () => {
         if (status.state === "submitting") return;
         setStatus({ state: "submitting", error: "" });
         try {
-            await submitContact(form);
+            if (isSheetConfigured()) {
+                // Primary: drop the lead straight into the Google Sheet.
+                const callTime = new Date().toLocaleTimeString("en-GB", {
+                    timeZone: "Asia/Kolkata",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                });
+                await submitToSheet({
+                    customer_name: form.name,
+                    customer_phone: form.phone,
+                    customer_gmail: form.email,
+                    call_time: callTime,
+                    status: "pending",
+                    project_type: form.project_type,
+                    budget: form.budget,
+                    message: form.message,
+                });
+                // Best-effort copy to the backend admin inbox (ignored if down).
+                submitContact(form).catch(() => {});
+            } else {
+                // Fallback: backend only (e.g. during local development).
+                await submitContact(form);
+            }
             setStatus({ state: "success", error: "" });
-            setForm({
-                name: "",
-                email: "",
-                project_type: PROJECT_TYPES[0],
-                budget: BUDGETS[1],
-                message: "",
-            });
+            setForm(emptyForm);
         } catch (err) {
             const detail =
                 err?.response?.data?.detail?.[0]?.msg ||
@@ -251,6 +270,19 @@ export const ContactSection = () => {
                                         className={inputClass}
                                     />
                                 </div>
+                            </div>
+
+                            <div>
+                                <FieldLabel>Phone / WhatsApp number</FieldLabel>
+                                <input
+                                    data-testid="contact-input-phone"
+                                    type="tel"
+                                    required
+                                    value={form.phone}
+                                    onChange={update("phone")}
+                                    placeholder="+91 98765 43210"
+                                    className={inputClass}
+                                />
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-7 sm:gap-8">
