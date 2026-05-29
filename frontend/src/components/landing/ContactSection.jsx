@@ -28,6 +28,19 @@ const PROJECT_TYPES = [
 
 const BUDGETS = ["< ₹25k", "₹25k – ₹60k", "₹60k – ₹1.5L", "₹1.5L+"];
 
+// Strip the +91 / 91 country code (and spaces, dashes, leading 0) so the
+// sheet stores a clean 10-digit number.
+const cleanPhone = (raw) => {
+    let digits = (raw || "").replace(/\D/g, "");
+    if (digits.length > 10 && digits.startsWith("91")) {
+        digits = digits.slice(2);
+    }
+    if (digits.length > 10 && digits.startsWith("0")) {
+        digits = digits.replace(/^0+/, "");
+    }
+    return digits;
+};
+
 const buildSocials = (s) =>
     [
         { name: "GitHub", href: s.github, Icon: Github },
@@ -80,7 +93,7 @@ export const ContactSection = () => {
                 });
                 await submitToSheet({
                     customer_name: form.name,
-                    customer_phone: form.phone,
+                    customer_phone: cleanPhone(form.phone),
                     customer_gmail: form.email,
                     call_time: callTime,
                     status: "pending",
