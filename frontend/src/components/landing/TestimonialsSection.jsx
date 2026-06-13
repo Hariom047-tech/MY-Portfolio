@@ -6,46 +6,56 @@ const TESTIMONIALS = [
     {
         name: "Rahul Sharma",
         role: "Founder, EduSpark Academy",
-        avatar: "https://i.pravatar.cc/120?img=12",
         rating: 5,
         text: "Our school management system completely transformed how we handle admissions, fees and attendance. Delivered on time and the admin dashboard is incredibly easy to use.",
     },
     {
         name: "Priya Verma",
         role: "Owner, StyleRent",
-        avatar: "https://i.pravatar.cc/120?img=45",
         rating: 5,
         text: "The rental clothes app exceeded our expectations. Vendor management and bookings work flawlessly. Our customers love the smooth experience on both Android and iOS.",
     },
     {
         name: "Amit Patel",
         role: "Director, GrowthLeads",
-        avatar: "https://i.pravatar.cc/120?img=33",
         rating: 5,
         text: "The AI calling agent and WhatsApp automation now handle our entire lead follow-up. We've saved hours every day and our conversion rate jumped significantly.",
     },
     {
         name: "Neha Gupta",
         role: "CEO, Bloom Boutique",
-        avatar: "https://i.pravatar.cc/120?img=20",
         rating: 5,
         text: "A beautiful, fast website that actually brings in customers. Communication was clear throughout and the SEO results have been fantastic.",
     },
     {
         name: "Vikram Singh",
         role: "Co-founder, FinTrack",
-        avatar: "https://i.pravatar.cc/120?img=51",
         rating: 5,
         text: "The CRM automation integrated perfectly with our Google Sheets and Twilio. Truly a full-stack expert who understands business needs, not just code.",
     },
     {
         name: "Sneha Reddy",
         role: "Manager, CareClinic",
-        avatar: "https://i.pravatar.cc/120?img=27",
         rating: 5,
         text: "Professional, responsive and genuinely talented. Our analytics dashboard gives us real-time insights we never had before. Highly recommended!",
     },
 ];
+
+// Brand gradients cycled across the client initials avatars.
+const AVATAR_GRADIENTS = [
+    "linear-gradient(135deg, #B600A8 0%, #7621B0 100%)",
+    "linear-gradient(135deg, #7621B0 0%, #BE4C00 100%)",
+    "linear-gradient(135deg, #BE4C00 0%, #B600A8 100%)",
+];
+
+const getInitials = (name) =>
+    name
+        .split(" ")
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((p) => p[0])
+        .join("")
+        .toUpperCase();
 
 const Stars = ({ count }) => (
     <div className="flex gap-1">
@@ -99,12 +109,16 @@ export const TestimonialsSection = () => {
                                     &ldquo;{t.text}&rdquo;
                                 </p>
                                 <div className="flex items-center gap-3 pt-2 border-t border-[#D7E2EA]/10">
-                                    <img
-                                        src={t.avatar}
-                                        alt={t.name}
-                                        loading="lazy"
-                                        className="h-11 w-11 rounded-full object-cover border border-[#D7E2EA]/20"
-                                    />
+                                    <span
+                                        aria-hidden="true"
+                                        className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-white font-bold text-sm border border-white/15"
+                                        style={{
+                                            background:
+                                                AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length],
+                                        }}
+                                    >
+                                        {getInitials(t.name)}
+                                    </span>
                                     <div className="flex flex-col">
                                         <span className="text-[#D7E2EA] font-medium text-sm sm:text-base">
                                             {t.name}

@@ -48,19 +48,22 @@ export const Navbar = () => {
                         onClick={() => handleNav("home")}
                         className="flex items-center gap-2 text-[#D7E2EA] font-bold tracking-tight text-base sm:text-lg"
                     >
-                        <span className="inline-flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#B600A8] via-[#7621B0] to-[#BE4C00] text-white text-sm font-black">
-                            H
-                        </span>
+                        <img
+                            src="/logo.png"
+                            alt={`${settings.brandName} logo`}
+                            className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover ring-1 ring-white/10"
+                            draggable={false}
+                        />
                         <span className="hidden sm:inline">{settings.brandShort}</span>
                     </button>
 
-                    <div className="hidden md:flex items-center gap-7 lg:gap-9">
+                    <div className="hidden lg:flex items-center gap-6 xl:gap-9">
                         {NAV_LINKS.map((link) => (
                             <button
                                 key={link.target}
                                 data-testid={`nav-link-${link.target}`}
                                 onClick={() => handleNav(link.target)}
-                                className="text-[#D7E2EA]/80 hover:text-white text-sm uppercase tracking-wider transition-colors duration-200"
+                                className="text-[#D7E2EA]/80 hover:text-white text-sm uppercase tracking-wider transition-colors duration-200 whitespace-nowrap"
                             >
                                 {link.label}
                             </button>
@@ -87,7 +90,7 @@ export const Navbar = () => {
                             data-testid="navbar-menu-toggle"
                             onClick={() => setOpen((v) => !v)}
                             aria-label="Toggle menu"
-                            className="md:hidden flex h-10 w-10 items-center justify-center rounded-full glass text-[#D7E2EA]"
+                            className="lg:hidden flex h-10 w-10 items-center justify-center rounded-full glass text-[#D7E2EA]"
                         >
                             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                         </button>
@@ -101,7 +104,7 @@ export const Navbar = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.25 }}
-                            className="md:hidden mt-2 rounded-3xl glass p-4 flex flex-col gap-1"
+                            className="lg:hidden mt-2 rounded-3xl glass p-4 flex flex-col gap-1"
                         >
                             {NAV_LINKS.map((link) => (
                                 <button

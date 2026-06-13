@@ -33,7 +33,12 @@ export const Preloader = () => {
                                 className="absolute inset-0 rounded-full border-2 border-transparent animate-spin-slow"
                                 style={{ borderTopColor: "#B600A8", borderRightColor: "#BE4C00" }}
                             />
-                            <span className="text-2xl font-black text-white">H</span>
+                            <img
+                                src="/logo.png"
+                                alt={`${SITE.brandName} logo`}
+                                className="h-14 w-14 rounded-full object-cover"
+                                draggable={false}
+                            />
                         </div>
                         <span className="gradient-text font-bold uppercase tracking-[0.3em] text-sm">
                             {SITE.brandName}

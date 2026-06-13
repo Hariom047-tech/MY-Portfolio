@@ -250,15 +250,15 @@ DEFAULT_PROJECTS = [
 ]
 
 DEFAULT_SETTINGS = {
-    "brandName": "Hariom Patidar",
-    "brandShort": "Hariom",
+    "brandName": "AI Wallah",
+    "brandShort": "AI Wallah",
     "role": "Full Stack Developer",
-    "email": "hello@hariompatidar.dev",
-    "phone": "+91 99999 99999",
+    "email": "patidarhariom@gmail.com",
+    "phone": "+91 70672 57835",
     "location": "India · Working worldwide",
-    "whatsappNumber": "919999999999",
-    "whatsappMessage": "Hi Hariom! I came across your portfolio and I'd like to discuss a project.",
-    "instagram": "https://instagram.com/",
+    "whatsappNumber": "917067257835",
+    "whatsappMessage": "Hi AI Wallah! I came across your portfolio and I'd like to discuss a project.",
+    "instagram": "https://www.instagram.com/ai_wallah.o",
     "linkedin": "https://linkedin.com/",
     "twitter": "https://twitter.com/",
     "github": "https://github.com/",
@@ -311,7 +311,7 @@ DEFAULT_PRICING = [
 # ------------------------------------------------------------------
 @api_router.get("/")
 async def root():
-    return {"message": "Hariom Patidar — Full Stack Developer API"}
+    return {"message": "AI Wallah — Full Stack Developer API"}
 
 
 @api_router.get("/health")

@@ -392,10 +392,13 @@ export const ContactSection = () => {
                     <footer className="mt-20 sm:mt-24 md:mt-28 pt-10 border-t border-[#D7E2EA]/10">
                         <div className="flex flex-col md:flex-row gap-10 md:gap-8 md:justify-between">
                             <div className="max-w-sm flex flex-col gap-4">
-                                <div className="flex items-center gap-2 text-[#D7E2EA] font-bold text-lg">
-                                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#B600A8] via-[#7621B0] to-[#BE4C00] text-white text-sm font-black">
-                                        H
-                                    </span>
+                                <div className="flex items-center gap-2.5 text-[#D7E2EA] font-bold text-lg">
+                                    <img
+                                        src="/logo.png"
+                                        alt={`${settings.brandName} logo`}
+                                        className="h-10 w-10 rounded-full object-cover ring-1 ring-white/10"
+                                        draggable={false}
+                                    />
                                     {settings.brandName}
                                 </div>
                                 <p className="text-[#D7E2EA]/55 font-light text-sm leading-relaxed">

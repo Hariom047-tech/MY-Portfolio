@@ -10,6 +10,7 @@ import { MarqueeSection } from "@/components/landing/MarqueeSection";
 import { ServicesSection } from "@/components/landing/ServicesSection";
 import { SkillsSection } from "@/components/landing/SkillsSection";
 import { ProjectsSection } from "@/components/landing/ProjectsSection";
+import { TemplatesSection } from "@/components/landing/TemplatesSection";
 import { PricingSection } from "@/components/landing/PricingSection";
 import { AboutSection } from "@/components/landing/AboutSection";
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
@@ -32,6 +33,7 @@ export const LandingPage = () => {
                 <ServicesSection />
                 <SkillsSection />
                 <ProjectsSection />
+                <TemplatesSection />
                 <PricingSection />
                 <AboutSection />
                 <TestimonialsSection />

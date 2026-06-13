@@ -31,7 +31,7 @@ export const HeroSection = () => {
                             className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-center"
                             style={{ fontSize: "clamp(2rem, 11.5vw, 13rem)" }}
                         >
-                            Hi, i&apos;m {settings.brandShort || "Hariom"}
+                            Hi, i&apos;m {settings.brandShort || "AI Wallah"}
                         </h1>
                     </FadeIn>
                 </div>
