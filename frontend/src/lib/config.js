@@ -4,7 +4,7 @@ export const SITE = {
     brandName: "AI Wallah",
     brandShort: "AI Wallah",
     role: "Full Stack Developer",
-    email: "hello@hariompatidar.dev",
+    email: "patidarhariom047@gmail.com",
     phone: "+91 70672 57835",
     location: "India · Working worldwide",
     // WhatsApp number in international format, digits only (country code + number).
@@ -13,9 +13,9 @@ export const SITE = {
         "Hi AI Wallah! I came across your portfolio and I'd like to discuss a project.",
     instagram: "https://www.instagram.com/ai_wallah.o",
     instagramHandle: "ai_wallah.o",
-    linkedin: "https://linkedin.com/",
-    twitter: "https://twitter.com/",
-    github: "https://github.com/",
+    linkedin: "https://www.linkedin.com/in/hariom-patidar-624262300?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    twitter: "",
+    github: "",
     facebook: "",
     youtube: "",
 };

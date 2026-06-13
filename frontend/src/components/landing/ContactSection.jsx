@@ -5,10 +5,6 @@ import {
     Phone,
     Instagram,
     Linkedin,
-    Twitter,
-    Github,
-    Facebook,
-    Youtube,
     ArrowRight,
     MessageCircle,
 } from "lucide-react";
@@ -41,14 +37,11 @@ const cleanPhone = (raw) => {
     return digits;
 };
 
-const buildSocials = (s) =>
+const buildSocials = (s, waHref) =>
     [
-        { name: "GitHub", href: s.github, Icon: Github },
         { name: "LinkedIn", href: s.linkedin, Icon: Linkedin },
+        { name: "WhatsApp", href: waHref, Icon: MessageCircle },
         { name: "Instagram", href: s.instagram, Icon: Instagram },
-        { name: "Twitter", href: s.twitter, Icon: Twitter },
-        { name: "Facebook", href: s.facebook, Icon: Facebook },
-        { name: "YouTube", href: s.youtube, Icon: Youtube },
     ].filter((item) => item.href && item.href.trim() !== "");
 
 const FieldLabel = ({ children }) => (
@@ -62,7 +55,7 @@ const inputClass =
 
 export const ContactSection = () => {
     const { settings, wa } = useSettings();
-    const SOCIALS = buildSocials(settings);
+    const SOCIALS = buildSocials(settings, wa());
     const emptyForm = {
         name: "",
         email: "",
