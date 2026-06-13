@@ -5,7 +5,8 @@ import { FadeIn } from "./FadeIn";
 import { LiveProjectButton } from "./LiveProjectButton";
 import { getProjects } from "@/lib/api";
 
-const shot = (seed) => `https://picsum.photos/seed/${seed}/900/700`;
+// Realistic generated project previews live in `frontend/public/projects/`.
+const shot = (name) => `/projects/${name}.png`;
 
 const FALLBACK = [
     {
@@ -18,7 +19,7 @@ const FALLBACK = [
         year: "2025",
         role: "Full Stack Development",
         tags: ["Next.js", "Tailwind CSS", "Vercel"],
-        images: [shot("baglamukhi1"), shot("baglamukhi2"), shot("baglamukhi3")],
+        images: [shot("baglamukhi-1"), shot("baglamukhi-2"), shot("baglamukhi-3")],
         live_url: "#",
     },
     {
@@ -31,7 +32,7 @@ const FALLBACK = [
         year: "2025",
         role: "Mobile App Development",
         tags: ["Flutter", "Firebase"],
-        images: [shot("rental1"), shot("rental2"), shot("rental3")],
+        images: [shot("rental-1"), shot("rental-2"), shot("rental-3")],
         live_url: "#",
     },
     {
@@ -44,7 +45,7 @@ const FALLBACK = [
         year: "2024",
         role: "Full Stack Development",
         tags: ["React", "Node.js", "MongoDB"],
-        images: [shot("school1"), shot("school2"), shot("school3")],
+        images: [shot("school-1"), shot("school-2"), shot("school-3")],
         live_url: "#",
     },
     {
@@ -57,7 +58,7 @@ const FALLBACK = [
         year: "2024",
         role: "Automation Engineering",
         tags: ["n8n", "Twilio", "Google Sheets API"],
-        images: [shot("crm1"), shot("crm2"), shot("crm3")],
+        images: [shot("crm-1"), shot("crm-2"), shot("crm-3")],
         live_url: "#",
     },
     {
@@ -70,7 +71,7 @@ const FALLBACK = [
         year: "2024",
         role: "AI Automation",
         tags: ["ElevenLabs", "Twilio", "n8n"],
-        images: [shot("aicall1"), shot("aicall2"), shot("aicall3")],
+        images: [shot("aicall-1"), shot("aicall-2"), shot("aicall-3")],
         live_url: "#",
     },
 ];

@@ -164,8 +164,8 @@ class SiteSettings(BaseModel):
 # ------------------------------------------------------------------
 # Seed data (used only the first time each table is empty)
 # ------------------------------------------------------------------
-def _shot(seed: str) -> str:
-    return f"https://picsum.photos/seed/{seed}/900/700"
+def _shot(name: str) -> str:
+    return f"/projects/{name}.png"
 
 
 DEFAULT_SERVICES = [
@@ -208,7 +208,7 @@ DEFAULT_PROJECTS = [
         "description": "Professional spiritual and puja booking website for Maa Baglamukhi services with a responsive modern UI and online booking flow.",
         "year": "2025", "role": "Full Stack Development",
         "tags": ["Next.js", "Tailwind CSS", "Vercel"],
-        "images": [_shot("baglamukhi1"), _shot("baglamukhi2"), _shot("baglamukhi3")],
+        "images": [_shot("baglamukhi-1"), _shot("baglamukhi-2"), _shot("baglamukhi-3")],
         "live_url": "#",
     },
     {
@@ -217,7 +217,7 @@ DEFAULT_PROJECTS = [
         "description": "Modern rental fashion mobile application with vendor management, customer booking system and real-time order tracking.",
         "year": "2025", "role": "Mobile App Development",
         "tags": ["Flutter", "Firebase"],
-        "images": [_shot("rental1"), _shot("rental2"), _shot("rental3")],
+        "images": [_shot("rental-1"), _shot("rental-2"), _shot("rental-3")],
         "live_url": "#",
     },
     {
@@ -226,7 +226,7 @@ DEFAULT_PROJECTS = [
         "description": "Complete school management platform with student management, attendance, fees, dashboards and a powerful admin panel.",
         "year": "2024", "role": "Full Stack Development",
         "tags": ["React", "Node.js", "MongoDB"],
-        "images": [_shot("school1"), _shot("school2"), _shot("school3")],
+        "images": [_shot("school-1"), _shot("school-2"), _shot("school-3")],
         "live_url": "#",
     },
     {
@@ -235,7 +235,7 @@ DEFAULT_PROJECTS = [
         "description": "Automated CRM system integrated with WhatsApp, Twilio, Google Sheets and AI workflow automation for lead capture and follow-up.",
         "year": "2024", "role": "Automation Engineering",
         "tags": ["n8n", "Twilio", "Google Sheets API"],
-        "images": [_shot("crm1"), _shot("crm2"), _shot("crm3")],
+        "images": [_shot("crm-1"), _shot("crm-2"), _shot("crm-3")],
         "live_url": "#",
     },
     {
@@ -244,7 +244,7 @@ DEFAULT_PROJECTS = [
         "description": "AI voice calling system using ElevenLabs and Twilio for automated customer interactions and intelligent lead follow-up.",
         "year": "2024", "role": "AI Automation",
         "tags": ["ElevenLabs", "Twilio", "n8n"],
-        "images": [_shot("aicall1"), _shot("aicall2"), _shot("aicall3")],
+        "images": [_shot("aicall-1"), _shot("aicall-2"), _shot("aicall-3")],
         "live_url": "#",
     },
 ]
