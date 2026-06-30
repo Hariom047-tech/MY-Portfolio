@@ -167,6 +167,37 @@ async def seed_if_empty(table: str, rows: List[dict]) -> None:
         logger.info("Seeded %d rows into %s", len(rows), table)
 
 
+async def sync_portfolio_projects(defaults: List[dict]) -> None:
+    """Apply shipped project links and HireFlow replacement to existing rows."""
+    by_id = {row["id"]: row for row in defaults}
+    hireflow = by_id.get("hireflow-ats")
+    link_only = {
+        "maa-baglamukhi": "https://maa-baglamukhi-website.vercel.app/",
+        "rental-clothes-app": "https://play.google.com/store/apps/details?id=com.chaitanya.rentalcothes",
+    }
+
+    for project_id, live_url in link_only.items():
+        row = await get_row("projects", project_id)
+        if row:
+            await update_row("projects", project_id, {**row, "live_url": live_url})
+
+    if not hireflow:
+        return
+
+    legacy = await get_row("projects", "crm-automation")
+    current = await get_row("projects", "hireflow-ats")
+
+    if legacy and not current:
+        data = {**hireflow, "sort_order": legacy.get("sort_order", 3)}
+        await create_row("projects", data)
+        await delete_row("projects", "crm-automation")
+        logger.info("Migrated crm-automation project to hireflow-ats")
+    elif legacy:
+        await update_row("projects", "crm-automation", {**legacy, **hireflow, "id": "crm-automation"})
+    elif current:
+        await update_row("projects", "hireflow-ats", {**current, **hireflow})
+
+
 # ------------------------------------------------------------------
 # Generic content CRUD
 # ------------------------------------------------------------------

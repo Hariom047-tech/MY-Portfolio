@@ -20,7 +20,7 @@ const FALLBACK = [
         role: "Full Stack Development",
         tags: ["Next.js", "Tailwind CSS", "Vercel"],
         images: [shot("baglamukhi-1"), shot("baglamukhi-2"), shot("baglamukhi-3")],
-        live_url: "#",
+        live_url: "https://maa-baglamukhi-website.vercel.app/",
     },
     {
         id: "rental-clothes-app",
@@ -33,7 +33,7 @@ const FALLBACK = [
         role: "Mobile App Development",
         tags: ["Flutter", "Firebase"],
         images: [shot("rental-1"), shot("rental-2"), shot("rental-3")],
-        live_url: "#",
+        live_url: "https://play.google.com/store/apps/details?id=com.chaitanya.rentalcothes",
     },
     {
         id: "school-management",
@@ -49,17 +49,17 @@ const FALLBACK = [
         live_url: "#",
     },
     {
-        id: "crm-automation",
+        id: "hireflow-ats",
         number: "04",
-        category: "Automation",
-        name: "CRM Automation System",
+        category: "AI",
+        name: "HireFlow ATS — HR Hiring Automation",
         description:
-            "Automated CRM system integrated with WhatsApp, Twilio, Google Sheets and AI workflow automation for lead capture and follow-up.",
-        year: "2024",
-        role: "Automation Engineering",
-        tags: ["n8n", "Twilio", "Google Sheets API"],
+            "AI-powered recruitment platform that automates the hiring process — from job posting and applicant tracking to interview scheduling and candidate screening.",
+        year: "2025",
+        role: "Full Stack + AI Automation",
+        tags: ["React", "Node.js", "AI Automation"],
         images: [shot("crm-1"), shot("crm-2"), shot("crm-3")],
-        live_url: "#",
+        live_url: "http://13.207.75.181/",
     },
     {
         id: "ai-calling-agent",

@@ -1,12 +1,11 @@
 import React from "react";
 import { FadeIn } from "./FadeIn";
-import { Magnet } from "./Magnet";
 import { ContactButton } from "./ContactButton";
+import { RotatingPortrait } from "./RotatingPortrait";
 import { scrollToId } from "@/lib/config";
 import { useSettings } from "@/lib/SettingsContext";
 
-const PORTRAIT =
-    "https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png";
+const PORTRAIT = "/hero-portrait.png";
 
 export const HeroSection = () => {
     const { settings } = useSettings();
@@ -36,25 +35,15 @@ export const HeroSection = () => {
                     </FadeIn>
                 </div>
 
-                {/* Portrait with magnetic hover */}
-                <div className="absolute left-1/2 -translate-x-1/2 z-10 top-1/2 -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0 w-[260px] sm:w-[340px] md:w-[420px] lg:w-[500px] pointer-events-none">
-                    <Magnet
-                        padding={150}
-                        strength={3}
-                        activeTransition="transform 0.3s ease-out"
-                        inactiveTransition="transform 0.6s ease-in-out"
-                        className="w-full"
-                    >
-                        <FadeIn delay={0.6} y={30}>
-                            <img
-                                data-testid="hero-portrait"
-                                src={PORTRAIT}
-                                alt={`${settings.brandName || "Developer"} portrait`}
-                                className="w-full h-auto block select-none"
-                                draggable={false}
-                            />
-                        </FadeIn>
-                    </Magnet>
+                {/* Portrait with 360° drag rotation */}
+                <div className="absolute left-1/2 -translate-x-1/2 z-10 top-1/2 -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0 w-[min(94vw,320px)] sm:w-[400px] md:w-[520px] lg:w-[640px] xl:w-[720px] 2xl:w-[800px] max-h-[58vh] sm:max-h-[78vh] lg:max-h-[85vh] pb-6 sm:pb-8 pointer-events-auto flex items-end justify-center">
+                    <FadeIn delay={0.6} y={30} className="w-full">
+                        <RotatingPortrait
+                            dataTestId="hero-portrait"
+                            src={PORTRAIT}
+                            alt={`${settings.brandName || "Developer"} portrait`}
+                        />
+                    </FadeIn>
                 </div>
 
                 {/* Bottom bar: tagline + CTA */}

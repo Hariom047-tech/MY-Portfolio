@@ -12,7 +12,7 @@ import uuid
 from datetime import datetime, timezone
 
 import database as db
-from database import configure as configure_db, init_db, seed_if_empty
+from database import configure as configure_db, init_db, seed_if_empty, sync_portfolio_projects
 from database import insert_status_check, list_status_checks
 from database import insert_contact, list_contacts, delete_contact
 from database import get_settings, set_settings, seed_settings_if_empty
@@ -209,7 +209,7 @@ DEFAULT_PROJECTS = [
         "year": "2025", "role": "Full Stack Development",
         "tags": ["Next.js", "Tailwind CSS", "Vercel"],
         "images": [_shot("baglamukhi-1"), _shot("baglamukhi-2"), _shot("baglamukhi-3")],
-        "live_url": "#",
+        "live_url": "https://maa-baglamukhi-website.vercel.app/",
     },
     {
         "id": "rental-clothes-app", "number": "02", "category": "Mobile",
@@ -218,7 +218,7 @@ DEFAULT_PROJECTS = [
         "year": "2025", "role": "Mobile App Development",
         "tags": ["Flutter", "Firebase"],
         "images": [_shot("rental-1"), _shot("rental-2"), _shot("rental-3")],
-        "live_url": "#",
+        "live_url": "https://play.google.com/store/apps/details?id=com.chaitanya.rentalcothes",
     },
     {
         "id": "school-management", "number": "03", "category": "Web",
@@ -230,13 +230,13 @@ DEFAULT_PROJECTS = [
         "live_url": "#",
     },
     {
-        "id": "crm-automation", "number": "04", "category": "Automation",
-        "name": "CRM Automation System",
-        "description": "Automated CRM system integrated with WhatsApp, Twilio, Google Sheets and AI workflow automation for lead capture and follow-up.",
-        "year": "2024", "role": "Automation Engineering",
-        "tags": ["n8n", "Twilio", "Google Sheets API"],
+        "id": "hireflow-ats", "number": "04", "category": "AI",
+        "name": "HireFlow ATS — HR Hiring Automation",
+        "description": "AI-powered recruitment platform that automates the hiring process — from job posting and applicant tracking to interview scheduling and candidate screening.",
+        "year": "2025", "role": "Full Stack + AI Automation",
+        "tags": ["React", "Node.js", "AI Automation"],
         "images": [_shot("crm-1"), _shot("crm-2"), _shot("crm-3")],
-        "live_url": "#",
+        "live_url": "http://13.207.75.181/",
     },
     {
         "id": "ai-calling-agent", "number": "05", "category": "AI",
@@ -534,4 +534,5 @@ async def startup_db():
     await seed_if_empty("services", DEFAULT_SERVICES)
     await seed_if_empty("projects", DEFAULT_PROJECTS)
     await seed_if_empty("pricing", DEFAULT_PRICING)
+    await sync_portfolio_projects(DEFAULT_PROJECTS)
     await seed_settings_if_empty(DEFAULT_SETTINGS)
