@@ -239,12 +239,12 @@ DEFAULT_PROJECTS = [
         "live_url": "http://13.207.75.181/",
     },
     {
-        "id": "ai-calling-agent", "number": "05", "category": "AI",
-        "name": "AI Calling Agent Automation",
-        "description": "AI voice calling system using ElevenLabs and Twilio for automated customer interactions and intelligent lead follow-up.",
-        "year": "2024", "role": "AI Automation",
-        "tags": ["ElevenLabs", "Twilio", "n8n"],
-        "images": [_shot("aicall-1"), _shot("aicall-2"), _shot("aicall-3")],
+        "id": "travel-agency", "number": "05", "category": "Web",
+        "name": "Travel Agency Website",
+        "description": "Full-featured travel agency platform where customers browse curated trip packages, plan itineraries, book holidays online, and manage their journeys — all in one place.",
+        "year": "2025", "role": "Full Stack Development",
+        "tags": ["React", "Next.js", "Tailwind CSS"],
+        "images": [_shot("travel-1"), _shot("travel-2"), _shot("travel-3")],
         "live_url": "#",
     },
 ]

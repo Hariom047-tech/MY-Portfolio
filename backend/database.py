@@ -197,6 +197,27 @@ async def sync_portfolio_projects(defaults: List[dict]) -> None:
     elif current:
         await update_row("projects", "hireflow-ats", {**current, **hireflow})
 
+    travel = by_id.get("travel-agency")
+    if not travel:
+        return
+
+    legacy_ai = await get_row("projects", "ai-calling-agent")
+    current_travel = await get_row("projects", "travel-agency")
+
+    if legacy_ai and not current_travel:
+        data = {**travel, "sort_order": legacy_ai.get("sort_order", 4)}
+        await create_row("projects", data)
+        await delete_row("projects", "ai-calling-agent")
+        logger.info("Migrated ai-calling-agent project to travel-agency")
+    elif legacy_ai:
+        await update_row(
+            "projects",
+            "ai-calling-agent",
+            {**legacy_ai, **travel, "id": "ai-calling-agent"},
+        )
+    elif current_travel:
+        await update_row("projects", "travel-agency", {**current_travel, **travel})
+
 
 # ------------------------------------------------------------------
 # Generic content CRUD
