@@ -167,13 +167,31 @@ async def seed_if_empty(table: str, rows: List[dict]) -> None:
         logger.info("Seeded %d rows into %s", len(rows), table)
 
 
+async def _migrate_project(legacy_id: str, new_def: dict) -> None:
+    """Replace a legacy project row with updated defaults."""
+    new_id = new_def["id"]
+    legacy = await get_row("projects", legacy_id)
+    current = await get_row("projects", new_id)
+
+    if legacy and not current:
+        data = {**new_def, "sort_order": legacy.get("sort_order", 0)}
+        await create_row("projects", data)
+        await delete_row("projects", legacy_id)
+        logger.info("Migrated %s project to %s", legacy_id, new_id)
+    elif legacy:
+        await update_row("projects", legacy_id, {**legacy, **new_def, "id": legacy_id})
+    elif current:
+        await update_row("projects", new_id, {**current, **new_def})
+
+
 async def sync_portfolio_projects(defaults: List[dict]) -> None:
-    """Apply shipped project links and HireFlow replacement to existing rows."""
+    """Apply shipped project links and content updates to existing rows."""
     by_id = {row["id"]: row for row in defaults}
-    hireflow = by_id.get("hireflow-ats")
     link_only = {
         "maa-baglamukhi": "https://maa-baglamukhi-website.vercel.app/",
         "rental-clothes-app": "https://play.google.com/store/apps/details?id=com.chaitanya.rentalcothes",
+        "fashion-ecommerce": "http://3.108.126.237",
+        "hireflow-ats": "http://13.207.75.181/",
     }
 
     for project_id, live_url in link_only.items():
@@ -181,42 +199,15 @@ async def sync_portfolio_projects(defaults: List[dict]) -> None:
         if row:
             await update_row("projects", project_id, {**row, "live_url": live_url})
 
-    if not hireflow:
-        return
-
-    legacy = await get_row("projects", "crm-automation")
-    current = await get_row("projects", "hireflow-ats")
-
-    if legacy and not current:
-        data = {**hireflow, "sort_order": legacy.get("sort_order", 3)}
-        await create_row("projects", data)
-        await delete_row("projects", "crm-automation")
-        logger.info("Migrated crm-automation project to hireflow-ats")
-    elif legacy:
-        await update_row("projects", "crm-automation", {**legacy, **hireflow, "id": "crm-automation"})
-    elif current:
-        await update_row("projects", "hireflow-ats", {**current, **hireflow})
-
-    travel = by_id.get("travel-agency")
-    if not travel:
-        return
-
-    legacy_ai = await get_row("projects", "ai-calling-agent")
-    current_travel = await get_row("projects", "travel-agency")
-
-    if legacy_ai and not current_travel:
-        data = {**travel, "sort_order": legacy_ai.get("sort_order", 4)}
-        await create_row("projects", data)
-        await delete_row("projects", "ai-calling-agent")
-        logger.info("Migrated ai-calling-agent project to travel-agency")
-    elif legacy_ai:
-        await update_row(
-            "projects",
-            "ai-calling-agent",
-            {**legacy_ai, **travel, "id": "ai-calling-agent"},
-        )
-    elif current_travel:
-        await update_row("projects", "travel-agency", {**current_travel, **travel})
+    migrations = [
+        ("crm-automation", "hireflow-ats"),
+        ("ai-calling-agent", "travel-agency"),
+        ("school-management", "fashion-ecommerce"),
+    ]
+    for legacy_id, new_id in migrations:
+        new_def = by_id.get(new_id)
+        if new_def:
+            await _migrate_project(legacy_id, new_def)
 
 
 # ------------------------------------------------------------------

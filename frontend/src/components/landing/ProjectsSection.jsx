@@ -3,10 +3,22 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { FadeIn } from "./FadeIn";
 import { LiveProjectButton } from "./LiveProjectButton";
+import { WhatsAppAgentButton } from "./WhatsAppAgentButton";
 import { getProjects } from "@/lib/api";
+import { buildWhatsappLink } from "@/lib/config";
 
 // Realistic generated project previews live in `frontend/public/projects/`.
 const shot = (name) => `/projects/${name}.png`;
+
+const PROJECT_WHATSAPP = {
+    "fashion-ecommerce": buildWhatsappLink("919303536612", "Hello"),
+};
+
+const withWhatsappLinks = (projects) =>
+    projects.map((p) => ({
+        ...p,
+        whatsapp_url: p.whatsapp_url || PROJECT_WHATSAPP[p.id],
+    }));
 
 const FALLBACK = [
     {
@@ -36,17 +48,18 @@ const FALLBACK = [
         live_url: "https://play.google.com/store/apps/details?id=com.chaitanya.rentalcothes",
     },
     {
-        id: "school-management",
+        id: "fashion-ecommerce",
         number: "03",
-        category: "Web",
-        name: "School Management Website",
+        category: "E-commerce",
+        name: "Fashion Virus — E-commerce + WhatsApp Leads",
         description:
-            "Complete school management platform with student management, attendance, fees, dashboards and a powerful admin panel.",
-        year: "2024",
-        role: "Full Stack Development",
-        tags: ["React", "Node.js", "MongoDB"],
-        images: [shot("school-1"), shot("school-2"), shot("school-3")],
-        live_url: "#",
+            "A men's fashion online store with a smart WhatsApp shopping assistant. Customers message +91 93035 36612 to find shirts by colour, size and budget — AI shows product cards with prices and links to the website, while our team manages every lead and order from one dashboard.",
+        year: "2025",
+        role: "Full Stack + WhatsApp Automation",
+        tags: ["React", "WhatsApp API", "AI Automation"],
+        images: [shot("fashion-1"), shot("fashion-2"), shot("fashion-3")],
+        live_url: "http://3.108.126.237",
+        whatsapp_url: PROJECT_WHATSAPP["fashion-ecommerce"],
     },
     {
         id: "hireflow-ats",
@@ -153,7 +166,7 @@ const ProjectCard = ({ project, index, progress, range, targetScale }) => {
                                 )}
                             </div>
                         </div>
-                        <div className="flex-shrink-0 self-start md:self-end pb-1 md:pb-3">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 flex-shrink-0 self-start md:self-end pb-1 md:pb-3">
                             {project.live_url && project.live_url !== "#" ? (
                                 <a
                                     href={project.live_url}
@@ -171,6 +184,19 @@ const ProjectCard = ({ project, index, progress, range, targetScale }) => {
                                     dataTestId={`project-${project.number}-live-btn`}
                                     onClick={(e) => e.preventDefault()}
                                 />
+                            )}
+                            {project.whatsapp_url && (
+                                <a
+                                    href={project.whatsapp_url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-block"
+                                    aria-label="Chat with WhatsApp shopping agent"
+                                >
+                                    <WhatsAppAgentButton
+                                        dataTestId={`project-${project.number}-whatsapp-btn`}
+                                    />
+                                </a>
                             )}
                         </div>
                     </div>
@@ -230,14 +256,14 @@ const ProjectCard = ({ project, index, progress, range, targetScale }) => {
 
 export const ProjectsSection = () => {
     const containerRef = useRef(null);
-    const [projects, setProjects] = useState(FALLBACK);
+    const [projects, setProjects] = useState(() => withWhatsappLinks(FALLBACK));
 
     useEffect(() => {
         let cancelled = false;
         getProjects()
             .then((data) => {
                 if (!cancelled && Array.isArray(data) && data.length > 0) {
-                    setProjects(data);
+                    setProjects(withWhatsappLinks(data));
                 }
             })
             .catch(() => {});
